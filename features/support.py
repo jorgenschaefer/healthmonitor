@@ -1,16 +1,17 @@
 import os
-import unittest
 
+from django import test
 from selenium import webdriver
 
 
 PHANTOMJS_BIN = os.path.join(
     os.path.dirname(__file__),
-    "..", "node_modules", ".bin", "phantomjs"
+    "..",
+    "node_modules/phantomjs/lib/phantom/bin/phantomjs"
 )
 
 
-class SeleniumTestCase(unittest.TestCase):
+class SeleniumTestCase(test.LiveServerTestCase):
     def setUp(self):
         if os.environ.get('WEBDRIVER') == "firefox":
             # When running ff, we do this usually via sshfs, which
@@ -25,6 +26,10 @@ class SeleniumTestCase(unittest.TestCase):
             # Can't chdir for phantomjs, that breaks ghostdriver.log
             # creation
             self.browser = webdriver.PhantomJS(PHANTOMJS_BIN)
+        self.browser.implicitly_wait(3)
 
     def tearDown(self):
         self.browser.quit()
+
+    def open(self, url):
+        self.browser.get("{}{}".format(self.live_server_url, url))

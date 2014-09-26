@@ -1,10 +1,18 @@
-.PHONY: test feature-test
+.PHONY: test test-features setup
+
+DJANGO_SETTINGS_MODULE := healthmonitor.settings
+PYTHONPATH := .
+
 
 test:
-	django-admin.py test --pythonpath=. --settings=healthmonitor.settings
+	env DJANGO_SETTINGS_MODULE=$(DJANGO_SETTINGS_MODULE) \
+            PYTHONPATH=$(PYTHONPATH) \
+	  django-admin.py test healthmonitor
 
 test-features:
-	python features/run.py
+	env DJANGO_SETTINGS_MODULE=$(DJANGO_SETTINGS_MODULE) \
+            PYTHONPATH=$(PYTHONPATH) \
+	  django-admin.py test features
 
 setup:
 	pip install -r requirements.txt
