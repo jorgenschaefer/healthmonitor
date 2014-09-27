@@ -1,6 +1,7 @@
 *.pyc
 __pycache__
 .coverage
+.dir-locals.el
 .env
 settings_devel.py
 /node_modules
