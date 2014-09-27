@@ -1,1 +1,11 @@
-<h1>Welcome, {{user.username}}!</h1>
+{% extends "base.html" %}
+
+{% block title %}Health Monitor — Home{% endblock %}
+
+{% block content %}
+<div class="container">
+
+  <h1>Welcome, {{user.username}}!</h1>
+
+</div>
+{% endblock %}

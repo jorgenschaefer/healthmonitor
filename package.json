@@ -3,5 +3,9 @@
   "private": true,
   "description": "Health monitor",
   "repository": "https://github.com/jorgenschaefer/healthmonitor",
-  "license": "AGPLv3"
+  "license": "AGPLv3",
+  "devDependencies": {
+    "bower": "^1.3.11",
+    "less": "^1.7.5"
+  }
 }

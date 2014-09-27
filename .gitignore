@@ -1,6 +1,10 @@
 *.pyc
 __pycache__
-/node_modules
 .coverage
-db.sqlite3
-ghostdriver.log
+.env
+settings_devel.py
+/node_modules
+/bower_components
+/db.sqlite3
+/ghostdriver.log
+/static

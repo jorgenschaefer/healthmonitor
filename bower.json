@@ -1,0 +1,7 @@
+{
+  "name": "healthmonitor",
+  "license": "AGPLv3",
+  "dependencies": {
+    "bootstrap": "~3.2.0"
+  }
+}

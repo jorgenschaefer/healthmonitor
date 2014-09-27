@@ -25,7 +25,7 @@ class SeleniumTestCase(test.LiveServerTestCase):
         else:
             # Can't chdir for phantomjs, that breaks ghostdriver.log
             # creation
-            self.browser = webdriver.PhantomJS(PHANTOMJS_BIN)
+            self.browser = webdriver.PhantomJS()
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
