@@ -4,13 +4,6 @@ from django import test
 from selenium import webdriver
 
 
-PHANTOMJS_BIN = os.path.join(
-    os.path.dirname(__file__),
-    "..",
-    "node_modules/phantomjs/lib/phantom/bin/phantomjs"
-)
-
-
 class SeleniumTestCase(test.LiveServerTestCase):
     def setUp(self):
         if os.environ.get('WEBDRIVER') == "firefox":
