@@ -10,6 +10,7 @@ test-features:
 	django-admin.py test features
 
 done: test test-features
+	(django-admin makemigrations --dry-run --noinput --no-color | grep "^Migrations for" &>/dev/null)
 	flake8 healthmonitor
 
 setup:
