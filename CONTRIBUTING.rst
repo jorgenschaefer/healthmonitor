@@ -19,7 +19,7 @@ A user story (or issue) is *done* when the following conditions are
 met:
 
 - There is a feature test for the user story.
-- The coverage of unittests is above 85%.
+- The coverage of unittests is above 95%.
 - All feature tests pass.
 - All unit tests pass.
 

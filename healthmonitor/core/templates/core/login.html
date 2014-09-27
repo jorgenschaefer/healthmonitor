@@ -1,0 +1,18 @@
+<html>
+  <body>
+    {% if form.errors %}
+    <div id="form-errors">
+      <p>Your username and password didn’t match. Please try again.</p>
+    </div>
+    {% endif %}
+
+    <form action="" method="post">
+      {% csrf_token %}
+      <label for="username">Username:</label>
+      <input id="login-username" type="text" name="username"><br>
+      <label for="password">Password:</label>
+      <input id="login-password" type="text" name="password"><br>
+      <input id="login-submit" type="submit" value="Log in">
+    </form>
+  </body>
+</html>

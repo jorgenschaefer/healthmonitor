@@ -36,6 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'healthmonitor.core',
+    'healthmonitor.weight',
 )
 
 MIDDLEWARE_CLASSES = (
