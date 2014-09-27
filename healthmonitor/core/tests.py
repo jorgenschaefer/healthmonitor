@@ -1,5 +1,4 @@
 from django.contrib.auth.models import User
-from django.template.loader import render_to_string
 from django.test import TestCase, Client
 from django.core.urlresolvers import reverse
 

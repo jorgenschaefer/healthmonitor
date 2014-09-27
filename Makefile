@@ -10,6 +10,7 @@ test-features:
 	django-admin.py test features
 
 done: test test-features
+	flake8 healthmonitor
 
 setup:
 	pip install -r requirements.txt

@@ -18,9 +18,24 @@ Definition of Done
 A user story (or issue) is *done* when the following conditions are
 met:
 
+- There are no PEP8 errors.
 - There is a feature test for the user story.
 - The coverage of unittests is above 95%.
 - All feature tests pass.
 - All unit tests pass.
 
 This also applies to pull requests.
+
+Development Setup
+=================
+
+To set up the project for development, you need:
+
+- PhantomJS or Firefox installed in the ``PATH`` as ``phantomjs`` or
+  ``firefox``, respectively.
+- The ``DJANGO_SETTINGS_MODULE`` exported as
+  ``healthmonitor.settings``.
+- Then, run ``make setup`` to install and prepare the environment.
+
+Afterwards, you could be able to do ``make done`` to run both feature
+and unit tests. If this fails, your contribution won't be accepted.
