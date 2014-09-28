@@ -29,13 +29,16 @@ This also applies to pull requests.
 Development Setup
 =================
 
-To set up the project for development, you need:
+The healthmonitor package requires the following programs in your
+``PATH``:
 
-- PhantomJS or Firefox installed in the ``PATH`` as ``phantomjs`` or
-  ``firefox``, respectively.
-- The ``DJANGO_SETTINGS_MODULE`` exported as
-  ``healthmonitor.settings``.
-- Then, run ``make setup`` to install and prepare the environment.
+- ``pyvenv-3.4``
+- ``phantomjs`` or ``firefox``
+- ``npm``
 
-Afterwards, you could be able to do ``make done`` to run both feature
-and unit tests. If this fails, your contribution won't be accepted.
+Then run ``make devel``. This should set up a development environment,
+including virtualenv.
+
+Once you have made your changes, you should use ``make check`` to
+check for the *definition of done* to be fulfilled. If this fails,
+your contribution won't be accepted.

@@ -3,8 +3,8 @@ __pycache__
 .coverage
 .dir-locals.el
 .env
+bower_components
 /node_modules
-/bower_components
 /db.sqlite3
 /ghostdriver.log
 /static

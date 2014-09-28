@@ -4,6 +4,8 @@ import os
 from .settings import *  # noqa
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "bower_components"),
+LESSC = os.path.join(BASE_DIR, "node_modules/.bin/lessc")
+
+COMPRESS_PRECOMPILERS = (
+    ('text/less', LESSC + ' {infile} {outfile}'),
 )
