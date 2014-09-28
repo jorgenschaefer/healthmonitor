@@ -33,8 +33,10 @@ class Test0001(SeleniumTestCase):
         password.send_keys("12345")
         submit.click()
         # Then I should see a welcome screen
-        header = self.browser.find_element_by_tag_name('h1')
-        self.assertIn("Welcome, testuser", header.text)
+        text_field = self.browser.find_element_by_css_selector(
+            'div.navbar p.navbar-text'
+        )
+        self.assertIn("Logged in as testuser", text_field.text)
 
     def test_login_error(self):
         # Given an unauthenticated user

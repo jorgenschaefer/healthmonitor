@@ -21,6 +21,7 @@ class SeleniumTestCase(test.LiveServerTestCase):
             # creation
             self.browser = webdriver.PhantomJS()
         self.browser.implicitly_wait(3)
+        self.browser.set_window_size(1024, 768)
 
     def tearDown(self):
         self.browser.quit()

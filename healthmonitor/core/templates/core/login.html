@@ -3,25 +3,22 @@
 {% block title %}Health Monitor — Login{% endblock %}
 
 {% block content %}
-<div class="container">
-  {% if form.errors %}
-  <div id="formErrors">
-    <p>Your username and password didn’t match. Please try again.</p>
-  </div>
-  {% endif %}
-
-  <form action="" method="post" class="form-signin" role="form">
-    {% csrf_token %}
-    <h2 class="form-signin-heading">Please sign in</h2>
-    <input type="text" class="form-control" placeholder="User name"
-           required autofocus
-           name="username">
-    <input type="password" class="form-control" placeholder="Password"
-           required
-           name="password">
-    <button id="loginSubmit" class="btn btn-lg btn-primary btn-block"
-            type="submit">Sign in</button>
-  </form>
+{% if form.errors %}
+<div id="formErrors">
+  <p>Your username and password didn’t match. Please try again.</p>
 </div>
+{% endif %}
 
+<form action="" method="post" class="form-signin" role="form">
+  {% csrf_token %}
+  <h2 class="form-signin-heading">Please sign in</h2>
+  <input type="text" class="form-control" placeholder="User name"
+         required autofocus
+         name="username">
+  <input type="password" class="form-control" placeholder="Password"
+         required
+         name="password">
+  <button id="loginSubmit" class="btn btn-lg btn-primary btn-block"
+          type="submit">Sign in</button>
+</form>
 {% endblock %}

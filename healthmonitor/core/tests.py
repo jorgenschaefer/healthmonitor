@@ -35,3 +35,17 @@ class TestLoginView(support.ViewTestCase):
 
         self.assertContains(response,
                             "Your username and password didn")
+
+    def test_should_say_not_logged_in_for_not_logged_in_user(self):
+        response = self.client.get(reverse('login'))
+        self.assertContains(response, "Not logged in")
+
+    def test_should_say_logged_in_and_user_name_for_logged_in_user(self):
+        User.objects.create_user(
+            username="testuser",
+            email="testuser@localhost.tld",
+            password="12345"
+        )
+        self.client.login(username="testuser", password="12345")
+        response = self.client.get(reverse('login'))
+        self.assertContains(response, "Logged in as testuser")
