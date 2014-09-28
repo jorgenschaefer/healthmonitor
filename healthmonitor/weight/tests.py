@@ -83,3 +83,24 @@ class TestHomeView(support.ViewTestCase):
 
         weight = models.Weight.objects.get()
         self.assertAlmostEqual(82.0, weight.weight)
+
+    def test_should_display_current_date(self):
+        today = timezone.now().strftime("%Y-%m-%d")
+        self.login()
+
+        response = self.client.get(reverse('home'))
+
+        self.assertContains(response, today)
+
+    def test_should_store_diverging_date(self):
+        self.login()
+        self.client.post(
+            reverse('home'),
+            {'weight': 85.0,
+             'date': '2000-05-23'}
+        )
+        weight = models.Weight.objects.get()
+        self.assertEqual(weight.user, self.user)
+        self.assertEqual(weight.weight, 85.0)
+        self.assertEqual(weight.date.strftime("%Y-%m-%d"),
+                         "2000-05-23")

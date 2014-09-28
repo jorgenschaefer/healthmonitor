@@ -1,14 +1,13 @@
-from django.utils import timezone
-
 from features.support import HealthTestCase
+
 from healthmonitor.weight.models import Weight
 
 # As an authenticated user
-# I want to enter my current weight
-# In order to easily update my weight history
+# I want to enter my weight for a past date
+# In order to complete my weight history in case I forgot an entry.
 
 
-class Test0002(HealthTestCase):
+class Test0003(HealthTestCase):
     def test_weight_form(self):
         # Given an authenticated user
         self.given_an_authenticated_user()
@@ -17,12 +16,15 @@ class Test0002(HealthTestCase):
         # Then I should be able to enter my current weight
         weight_input = self.browser.find_element_by_id("weightInput")
         weight_input.send_keys("85.0")
+        # And the current date
+        date_input = self.browser.find_element_by_id("dateInput")
+        date_input.clear()
+        date_input.send_keys("2000-09-01")
         submit = self.browser.find_element_by_id("weightSubmit")
         submit.click()
-        # And I should find the weight in the database
+        # And I should find the new weight in the database
         weight = Weight.objects.get()
-        self.assertEqual(timezone.now().date(), weight.date)
-        self.assertAlmostEqual(85.0, weight.weight)
+        self.assertEqual("2000-09-01", weight.date.strftime("%Y-%m-%d"))
 
     def test_should_not_duplicate_weights(self):
         # Given an authenticated user

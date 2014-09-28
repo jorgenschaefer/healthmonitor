@@ -8,10 +8,12 @@ from . import models
 
 @login_required
 def home(request):
+    today = timezone.now().date()
     if request.method == 'POST':
+        date = request.POST.get('date', today)
         weight, created = models.Weight.objects.get_or_create(
             user=request.user,
-            date=timezone.now().date(),
+            date=date,
             defaults={"weight": request.POST['weight']}
         )
         if not created:
@@ -21,4 +23,5 @@ def home(request):
     else:
         weight_list = models.Weight.objects.all()
         return render(request, 'weight/home.html',
-                      {"weight_list": weight_list})
+                      {"weight_list": weight_list,
+                       "today": today})

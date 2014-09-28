@@ -6,10 +6,15 @@
 <form action="" method="post" class="form-inline" role="form">
   {% csrf_token %}
   <div class="form-group">
+    <label class="sr-only" for="weightInput">Date</label>
+    <input class="form-control" id="dateInput"
+           type="text" placeholder="Date (YYYY-MM-DD)"
+           name="date" value="{{today|date:'Y-m-d'}}"
+           required>
     <label class="sr-only" for="weightInput">Weight</label>
     <div class="input-group input-group-sm">
       <div class="input-group-addon">kg</div>
-      <input class="form-control"  id="weightInput"
+      <input class="form-control" id="weightInput"
              type="text" placeholder="Weight (kg)"
              name="weight"
              required autofocus>
