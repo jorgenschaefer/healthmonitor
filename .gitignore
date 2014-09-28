@@ -3,7 +3,6 @@ __pycache__
 .coverage
 .dir-locals.el
 .env
-settings_devel.py
 /node_modules
 /bower_components
 /db.sqlite3
