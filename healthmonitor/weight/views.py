@@ -9,11 +9,16 @@ from . import models
 @login_required
 def home(request):
     if request.method == 'POST':
-        models.Weight.objects.create(
+        weight, created = models.Weight.objects.get_or_create(
             user=request.user,
             date=timezone.now().date(),
-            weight=request.POST['weight']
+            defaults={"weight": request.POST['weight']}
         )
+        if not created:
+            weight.weight = request.POST['weight']
+            weight.save()
         return redirect(reverse('home'))
     else:
-        return render(request, 'weight/home.html')
+        weight_list = models.Weight.objects.all()
+        return render(request, 'weight/home.html',
+                      {"weight_list": weight_list})

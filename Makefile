@@ -3,14 +3,17 @@
 test:
 	coverage run --branch \
           `which django-admin.py` test healthmonitor
-	coverage report -m --include="*/healthmonitor/healthmonitor/*" \
+	coverage report -m \
+          --include="*/healthmonitor/healthmonitor/*" \
+	  --omit="*/migrations/*" \
 	  --fail-under=95
 
 test-features:
 	django-admin.py test features
 
 done: test test-features
-	(django-admin makemigrations --dry-run --noinput --no-color | grep "^Migrations for" &>/dev/null)
+	django-admin makemigrations --dry-run --noinput --no-color \
+	  | grep -q "^No changes detected"
 	flake8 --exclude="migrations" healthmonitor
 
 setup:

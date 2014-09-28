@@ -20,3 +20,21 @@ class Test0002(HealthTestCase):
         submit.click()
 
         Weight.objects.get()
+
+    def test_should_not_duplicate_weights(self):
+        # Given an authenticated user
+        self.given_an_authenticated_user()
+        # When I go to the main page
+        self.open("/")
+        # And I enter my current weight
+        weight_input = self.browser.find_element_by_id("weightInput")
+        weight_input.send_keys("85.0")
+        submit = self.browser.find_element_by_id("weightSubmit")
+        submit.click()
+        # And I enter my current weight again
+        weight_input = self.browser.find_element_by_id("weightInput")
+        weight_input.send_keys("85.0")
+        submit = self.browser.find_element_by_id("weightSubmit")
+        submit.click()
+        # Then there should still be only one weight value
+        Weight.objects.get()

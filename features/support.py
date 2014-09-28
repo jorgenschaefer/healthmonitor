@@ -32,7 +32,7 @@ class SeleniumTestCase(test.LiveServerTestCase):
 
 class HealthTestCase(SeleniumTestCase):
     def given_an_authenticated_user(self):
-        User.objects.create_user(
+        user = User.objects.create_user(
             username="testuser",
             email="testuser@localhost.tld",
             password="12345"
@@ -44,3 +44,4 @@ class HealthTestCase(SeleniumTestCase):
         username.send_keys("testuser")
         password.send_keys("12345")
         submit.click()
+        return user
