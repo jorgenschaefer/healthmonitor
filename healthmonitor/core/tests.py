@@ -1,14 +1,10 @@
 from django.contrib.auth.models import User
-from django.test import TestCase, Client
 from django.core.urlresolvers import reverse
 
-
-class ViewTestCase(TestCase):
-    def setUp(self):
-        self.client = Client()
+from healthmonitor.core import support
 
 
-class TestLoginView(ViewTestCase):
+class TestLoginView(support.ViewTestCase):
     def test_should_display_login_form(self):
         with self.assertTemplateUsed('core/login.html'):
             self.client.get(reverse('login'))

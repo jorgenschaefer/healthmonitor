@@ -7,5 +7,20 @@
 
   <h1>Welcome, {{user.username}}!</h1>
 
+  <form action="" method="post" class="form-inline" role="form">
+    {% csrf_token %}
+    <h2>Please enter your current weight</h2>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon">kg</div>
+        <input class="form-control"  id="weightInput"
+               type="text" placeholder="Weight (kg)"
+               name="weight"
+               required autofocus>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-default"
+            id="weightSubmit" >Enter weight</button>
+  </form>
 </div>
 {% endblock %}

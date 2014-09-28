@@ -1,16 +1,10 @@
-from django.contrib.auth.models import User
 from django.core.urlresolvers import resolve, reverse
-from django.test import TestCase, Client
 
-from . import views
-
-
-class ViewTestCase(TestCase):
-    def setUp(self):
-        self.client = Client()
+from . import views, models
+from healthmonitor.core import support
 
 
-class TestHomeView(ViewTestCase):
+class TestHomeView(support.ViewTestCase):
     def test_should_be_at_root(self):
         actual = resolve('/')
 
@@ -25,12 +19,22 @@ class TestHomeView(ViewTestCase):
         )
 
     def test_should_not_redirect_authenticated_users(self):
-        User.objects.create_user(
-            username="testuser",
-            email="testuser@localhost.tld",
-            password="12345"
-        )
-        self.client.login(username='testuser', password='12345')
-
+        self.login()
         with self.assertTemplateUsed('weight/home.html'):
             self.client.get(reverse('home'))
+
+    def test_should_have_weight_form(self):
+        self.login()
+        response = self.client.get(reverse('home'))
+        self.assertContains(response, "weightInput")
+        self.assertContains(response, "weightSubmit")
+
+    def test_should_store_weight(self):
+        self.login()
+        self.client.post(
+            reverse('home'),
+            {'weight': 85.0}
+        )
+        weight = models.Weight.objects.get()
+        self.assertEqual(weight.user, self.user)
+        self.assertEqual(weight.weight, 85.0)

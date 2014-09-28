@@ -1,6 +1,7 @@
 import os
 
 from django import test
+from django.contrib.auth.models import User
 from selenium import webdriver
 
 
@@ -26,3 +27,19 @@ class SeleniumTestCase(test.LiveServerTestCase):
 
     def open(self, url):
         self.browser.get("{}{}".format(self.live_server_url, url))
+
+
+class HealthTestCase(SeleniumTestCase):
+    def given_an_authenticated_user(self):
+        User.objects.create_user(
+            username="testuser",
+            email="testuser@localhost.tld",
+            password="12345"
+        )
+        self.open("/")
+        username = self.browser.find_element_by_name("username")
+        password = self.browser.find_element_by_name("password")
+        submit = self.browser.find_element_by_id("loginSubmit")
+        username.send_keys("testuser")
+        password.send_keys("12345")
+        submit.click()
