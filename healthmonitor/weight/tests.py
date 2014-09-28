@@ -20,9 +20,10 @@ class TestWeightModel(support.ViewTestCase):
 
 
 class TestHomeView(support.ViewTestCase):
-    def create_weight(self, weight):
+    def create_weight(self, weight, date=None):
         user = self.user
-        date = timezone.now().date()
+        if date is None:
+            date = timezone.now().date()
         return models.Weight.objects.create(
             user=user,
             date=date,
@@ -104,3 +105,16 @@ class TestHomeView(support.ViewTestCase):
         self.assertEqual(weight.weight, 85.0)
         self.assertEqual(weight.date.strftime("%Y-%m-%d"),
                          "2000-05-23")
+
+    def test_should_display_newer_dates_first(self):
+        self.login()
+        self.create_weight(date="2012-01-01", weight=80.0)
+        self.create_weight(date="2010-01-01", weight=90.0)
+        self.create_weight(date="2011-01-01", weight=80.0)
+
+        response = self.client.get(reverse('home'))
+
+        self.assertRegexpMatches(
+            response.content.decode("utf-8"),
+            "2012(.|\n)*2011(.|\n)*2010"
+        )

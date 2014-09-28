@@ -47,6 +47,9 @@ clean:
 compress:
 	$(DJANGOADMIN) compress --force --settings=healthmonitor.settings_devel
 
+migrations:
+	$(DJANGOADMIN) makemigrations --settings=healthmonitor.settings_devel
+
 runserver:
 	$(DJANGOADMIN) migrate --settings=healthmonitor.settings_devel
 	$(DJANGOADMIN) runserver --settings=healthmonitor.settings_devel

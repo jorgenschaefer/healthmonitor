@@ -9,6 +9,7 @@ class Weight(models.Model):
 
     class Meta:
         unique_together = [("user", "date")]
+        ordering = ["-date"]
 
     def __str__(self):
         return "{} at {} kg on {}".format(self.user.username,
