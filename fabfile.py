@@ -33,27 +33,24 @@ def deploy():
     run("tar -C lib/ -xzf deploy.tar.gz")
     run("rm deploy.tar.gz")
 
-    run("venv/bin/pip install -qr lib/requirements.txt")
-    run("venv/bin/django-admin migrate --noinput "
-        "--settings=healthmonitor.settings_production")
-    run("venv/bin/django-admin collectstatic --noinput "
-        "--settings=healthmonitor.settings_production")
-
-    with lcd("healthmonitor/core/static/"):
-        local("bower install --production")
-    local("tar -C healthmonitor/core/static/ -c bower_components/ "
+    local("bower install --production")
+    local("tar -c bower_components/ "
           "-zf bower_components.tar.gz")
     put("bower_components.tar.gz")
     local("rm bower_components.tar.gz")
-    run("tar -C health.jorgenschaefer.de/static/ -xzf bower_components.tar.gz")
-    run("tar -C lib/healthmonitor/core/static/ -xzf bower_components.tar.gz")
+    run("tar -C lib -xzf bower_components.tar.gz")
     run("rm bower_components.tar.gz")
-
     local("make compress")
     local("tar -C static -c CACHE -zf compressed_cache.tar.gz")
     put("compressed_cache.tar.gz")
     local("rm compressed_cache.tar.gz")
     run("tar -C health.jorgenschaefer.de/static/ -xzf compressed_cache.tar.gz")
     run("rm compressed_cache.tar.gz")
+
+    run("venv/bin/pip install -qr lib/requirements.txt")
+    run("venv/bin/django-admin migrate --noinput "
+        "--settings=healthmonitor.settings_production")
+    run("venv/bin/django-admin collectstatic --noinput "
+        "--settings=healthmonitor.settings_production")
 
     run("sudo /usr/bin/supervisorctl restart healthmonitor")

@@ -91,3 +91,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder',
 )
+
+STATICFILES_DIRS = (
+    ("bower_components", os.path.join(BASE_DIR, "bower_components")),
+)
